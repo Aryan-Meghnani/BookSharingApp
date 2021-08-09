@@ -1,12 +1,12 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class IssueReturnDate {
     private String status;
-    private LocalDate issueDate;
-    private LocalDate returnDate;
-    private LocalDate requestDate;
-
+    private LocalDateTime issueDate;
+    private LocalDateTime returnDate;
+    private LocalDateTime requestDate;
 
 
     public String getStatus() {
@@ -17,27 +17,27 @@ public class IssueReturnDate {
         this.status = status;
     }
 
-    public LocalDate getIssueDate() {
+    public LocalDateTime getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(LocalDate issueDate) {
+    public void setIssueDate(LocalDateTime issueDate) {
         this.issueDate = issueDate;
     }
 
-    public LocalDate getReturnDate() {
+    public LocalDateTime getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
+    public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
     }
 
-    public LocalDate getRequestDate() {
+    public LocalDateTime getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(LocalDate requestDate) {
+    public void setRequestDate(LocalDateTime requestDate) {
         this.requestDate = requestDate;
     }
 

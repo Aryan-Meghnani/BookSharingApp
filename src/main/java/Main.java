@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -13,7 +15,13 @@ public class Main {
 
         List<BookAndOwner> bookAndOwner = new ArrayList<>();
         List<BookIssue> bookIssue = new ArrayList<>();
+        List<BookRequest> bookRequest = new ArrayList<>();
         Manage manage = new Manage();
+
+        ArrayList<Thread> threads = new ArrayList<Thread>();
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        ExecutorService es = Executors.newFixedThreadPool(coreCount);
+
 
         bookAndOwner.add(new BookAndOwner(new Books("John Bidwell", "A Boy at Seven", "1-86092-022-5"), u1, 1));
         bookAndOwner.add(new BookAndOwner(new Books("JK Rowling", "Harry Potter", "9780747532743"), u2, 3));
@@ -50,14 +58,16 @@ public class Main {
                     System.out.println("Incorrect Input: Try Again\n");
                     continue;
             }
+
             while (true) {
                 System.out.println("1. To Add Books");
                 System.out.println("2. To Show Books");
                 System.out.println("3. To Search and Issue Books");
                 System.out.println("4. To Return Books/Show Issued Books");
-                System.out.println("5. To Show all Issued Book");
+                System.out.println("5. To Show all Issued/Requested Books");
                 System.out.println("6. To Switch User");
-                System.out.println("7. To Exit");
+                System.out.println("7. To Show Book Requests");
+                System.out.println("8. To Exit");
 
                 int point = sc.nextInt();
                 if (point == 1) {
@@ -67,19 +77,23 @@ public class Main {
                     continue;
                 } else if (point == 2) {
 //                System.out.println(bookAndOwner);
-                    manage.show(bookAndOwner);
+                    manage.showList(bookAndOwner);
                     sc.nextLine();
 
                     continue;
                 } else if (point == 3) {
-//                    Owner finalOwner = owner;
-//                        Thread t1 = new Thread(() ->
-//                        {
-//                            manage.search(bookAndOwner, bookIssue, finalOwner);
-//                       });
-//                        t1.start();
-//                        t1.join(10000);
-                    manage.search(bookAndOwner, bookIssue, owner);
+                    Owner finalOwner = owner;
+                    Thread t1 = new Thread(() ->
+                    {
+                        manage.search(bookAndOwner, bookIssue, finalOwner, bookRequest);
+                    });
+                    t1.start();
+                    System.out.println(t1.getName());
+                    while (true) {
+                        if (t1.getState() == Thread.State.TERMINATED || t1.getState() == Thread.State.WAITING)
+                            break;
+                    }
+//                    manage.search(bookAndOwner, bookIssue, owner);
 
                     sc.nextLine();
 
@@ -92,7 +106,7 @@ public class Main {
                         System.exit(0);
 
                 } else if (point == 4) {
-                    manage.bookReturn(bookIssue, owner, bookAndOwner);
+                    manage.bookReturn(bookIssue, owner, bookAndOwner, bookRequest);
                     sc.nextLine();
                 } else if (point == 5) {
                     manage.bookIssuedList(bookIssue);
@@ -100,6 +114,8 @@ public class Main {
                 } else if (point == 6) {
                     break;
                 } else if (point == 7) {
+                    manage.showRequestList(bookRequest);
+                } else if (point == 8) {
                     System.exit(0);
                 } else {
                     System.out.println("Incorrect Input, Try Again\n");

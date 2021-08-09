@@ -1,4 +1,4 @@
-import java.util.List;
+
 
 public class Owner {
     private String name;
@@ -16,4 +16,5 @@ public class Owner {
         return
                 "Owner='" + name + '\'' ;
     }
+
 }

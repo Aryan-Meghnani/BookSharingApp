@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class BookIssue {
     BookAndOwner bookAndOwner;
     Owner owner;
@@ -26,9 +28,22 @@ public class BookIssue {
     public String toString() {
         return "Author='" + bookAndOwner.getBooks().getAuthor() + '\'' +
                 ", Book='" + bookAndOwner.getBooks().getBook() + '\'' +
-                ", Isbn='" + bookAndOwner.getBooks().getIsbn() + '\''+
-                ", Owner of Book='" + bookAndOwner.getOwner() + '\''+
-                ", Issued to Owner=" + owner+'\''+
-                ", IssueAndReturn='"+ issueReturnDate+'\'';
+                ", Isbn='" + bookAndOwner.getBooks().getIsbn() + '\'' +
+                ", Owner of Book='" + bookAndOwner.getOwner() + '\'' +
+                ", Issued to Owner=" + owner + '\'' +
+                ", IssueAndReturn='" + issueReturnDate + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookIssue bookIssue = (BookIssue) o;
+        return Objects.equals(bookAndOwner, bookIssue.bookAndOwner) && Objects.equals(owner, bookIssue.owner) && issueReturnDate.getStatus() == "Requested";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookAndOwner, owner, issueReturnDate);
     }
 }
