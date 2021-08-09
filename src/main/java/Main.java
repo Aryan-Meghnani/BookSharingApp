@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -18,9 +16,6 @@ public class Main {
         List<BookRequest> bookRequest = new ArrayList<>();
         Manage manage = new Manage();
 
-        ArrayList<Thread> threads = new ArrayList<Thread>();
-        int coreCount = Runtime.getRuntime().availableProcessors();
-        ExecutorService es = Executors.newFixedThreadPool(coreCount);
 
 
         bookAndOwner.add(new BookAndOwner(new Books("John Bidwell", "A Boy at Seven", "1-86092-022-5"), u1, 1));
@@ -44,6 +39,7 @@ public class Main {
             sc.nextLine();
             switch (own) {
                 case 1:
+                    owner = u1;
                     break;
                 case 2:
                     owner = u2;
@@ -74,13 +70,13 @@ public class Main {
                     manage.addBook(bookAndOwner, owner);
                     sc.nextLine();
 
-                    continue;
+
                 } else if (point == 2) {
 //                System.out.println(bookAndOwner);
                     manage.showList(bookAndOwner);
                     sc.nextLine();
 
-                    continue;
+
                 } else if (point == 3) {
                     Owner finalOwner = owner;
                     Thread t1 = new Thread(() ->
