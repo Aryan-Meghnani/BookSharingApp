@@ -185,7 +185,7 @@ public class Manage {
                     int indexBookRequest = bookRequest.indexOf(new BookRequest(bookAndOwner.get(indexBookAndOwner), owner, date));
 
 //                    bookRequest.get(indexBookRequest).getDate()
-                    System.out.println(indexBookRequest);
+//                    System.out.println(indexBookRequest);
                     if (bookRequest.contains(new BookRequest(bookAndOwner.get(indexBookAndOwner), owner, date))) {
                         bookRequest.remove(indexBookRequest);
                         notify();

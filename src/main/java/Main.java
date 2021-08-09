@@ -88,7 +88,7 @@ public class Main {
                         manage.search(bookAndOwner, bookIssue, finalOwner, bookRequest);
                     });
                     t1.start();
-                    System.out.println(t1.getName());
+//                    System.out.println(t1.getName());
                     while (true) {
                         if (t1.getState() == Thread.State.TERMINATED || t1.getState() == Thread.State.WAITING)
                             break;
